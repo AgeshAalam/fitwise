@@ -1,0 +1,1 @@
+alter table user_profile modify biography varchar(5000);

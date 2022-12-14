@@ -1,0 +1,712 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fitwise</groupId>
+    <artifactId>fitwise-be</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.1.RELEASE</version>
+    </parent>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <javassist.version>3.24.1-GA</javassist.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skip.liquibase>true</skip.liquibase>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <app.db.host>localhost</app.db.host>
+        <app.db.username>root</app.db.username>
+        <app.db.password>ameex</app.db.password>
+        <app.db.database>fitwise</app.db.database>
+        <app.email.username>fitwisetrainnr.qa@gmail.com</app.email.username>
+        <app.email.password>ronffgidlmlqdpnf</app.email.password>
+        <app.encryption.key>FITWISE@123</app.encryption.key>
+        <app.redis.host>localhost</app.redis.host>
+        <aws.access.key>AKIAJ4GPQ7RVM4USYDNA</aws.access.key>
+        <aws.secret.key>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</aws.secret.key>
+        <aws.region>us-east-1</aws.region>
+        <aws.s3.bucket.resources>fitwise-resource</aws.s3.bucket.resources>
+        <vimeo.placeholder.api>https://api.vimeo.com</vimeo.placeholder.api>
+        <vimeo.auth.token>8863f66cde69ce477a927d48dd8729b4</vimeo.auth.token>
+        <vimeo.auth.token.mvfolder>d8b4f7a814c9db5774384ce7fafdd0ba</vimeo.auth.token.mvfolder>
+        <vimeo.folder.projectid>1659760</vimeo.folder.projectid>
+        <capcha.site.key>6Le7FOoUAAAAAC0mpPjToWdDRrS2MTUsIiGFQIme</capcha.site.key>
+        <capcha.secret.key>6Le7FOoUAAAAAKM5hXpcGBTdtOprXuC7w0o6GruI</capcha.secret.key>
+        <app.url>http://localhost:8080</app.url>
+        <aws.resource.base.url>https://dev-resource.trainnr.com</aws.resource.base.url>
+        <AWS_RESOURCE_BASE_UR>https://stg-resource.trainnr.com</AWS_RESOURCE_BASE_UR>
+        <qbo.oauth.clientid></qbo.oauth.clientid>
+        <qbo.oauth.clientsecret></qbo.oauth.clientsecret>
+        <qbo.oauth_redirecturl></qbo.oauth_redirecturl>
+        <qbo.account.host></qbo.account.host>
+        <qbo.company.id></qbo.company.id>
+        <qbo.company.name></qbo.company.name>
+        <qbo.verifier.token></qbo.verifier.token>
+        <qbo.nofdays.sync.payment>5</qbo.nofdays.sync.payment>
+        <mailchimp.api.accesskey></mailchimp.api.accesskey>
+        <mailchimp.notify.list.id.instructor></mailchimp.notify.list.id.instructor>
+        <mailchimp.notify.list.id.member></mailchimp.notify.list.id.member>
+        <trainnr.notify.to></trainnr.notify.to>
+        <trainnr.notify.cc></trainnr.notify.cc>
+        <fcm.push.serverkey.member>
+        </fcm.push.serverkey.member>
+        <fcm.push.serverkey.instructor>
+        </fcm.push.serverkey.instructor>
+        <!-- Official Authorize.net Sandbox credentials-->
+        <auth.api.login.id>5bd4B6xWRZx</auth.api.login.id>
+        <auth.api.transaction.key>87u2xrJ4M638QyUf</auth.api.transaction.key>
+        <stripe.api_key>
+            sk_test_51HUGcuCs3IiCm7HSjP8qSwBbGxSaP3OtIwKNSAVqgat1Jsaov5Ffei8MH0UokMB39ckadcLd6t923vgvvzI87oZ600oIY1crTo
+        </stripe.api_key>
+        <stripe.end_point_secret>whsec_mVhPaW7FGZtB9NB25e5hHr8bN7N8wKUU</stripe.end_point_secret>
+        <app.env>local</app.env>
+        <apple.payment.env>local</apple.payment.env>
+        <qbo.account.bank.name></qbo.account.bank.name>
+        <app.test.bot.email.list></app.test.bot.email.list>
+        <!--Zendesk Configuration-->
+        <zendesk.api.login.key></zendesk.api.login.key>
+        <zendesk.api.domain.url></zendesk.api.domain.url>
+        <zendesk.support.phone.number></zendesk.support.phone.number>
+        <google.oauth.callback.uri>http://localhost:8080/v1/gauth</google.oauth.callback.uri>
+        <google.secret.key.path>classpath:google/client_secret_dev.json</google.secret.key.path>
+        <!-- Apple Configuration -->
+        <app.secret.key></app.secret.key>
+        <validate.receipt.endpoint></validate.receipt.endpoint>
+        <iap.itms.appstore.notify.emailaddress></iap.itms.appstore.notify.emailaddress>
+        <!-- kloudless configuration -->
+        <kloudless.app.id>GuwhhUhM2lcct_SDq88rws3gHxjDZJPV5G5NZoxxhHgZLrin</kloudless.app.id>
+        <kloudless.api.key>7Kn91jzKAo6uVxAs6DQVvUNJqNpr55r-vsOQDeIsAocOdGCB</kloudless.api.key>
+        
+        <!-- cronofy configuration -->
+         <cronofy.app.clientId>FX2KDYdJEDTyZ9G8XDdm2DmhNaKjcP3k</cronofy.app.clientId>
+         <cronofy.api.clientSecret>CRN_qeFhOgyol3g1vrLB5zr4bnPrppTNSvdkmMsFLG</cronofy.api.clientSecret>
+         <cronofy.client.redirect.uri>https://example.com/oauth</cronofy.client.redirect.uri>
+        
+        <!-- zoom configuration -->
+        <zoom.client.id>1pMxOBByR9uhTIIcuVLcaQ</zoom.client.id>
+        <zoom.client.secret>757pBvtHjQ13GmawaQHX33FBbQPY71x3</zoom.client.secret>
+        <zoom.client.redirect.url>https://instructor.trainnr.com/app/settings/integrations</zoom.client.redirect.url>
+        <zoom.client.verification.token>qANXKjw4RXuUrHyp3CwnrA</zoom.client.verification.token>
+        <instructor.base.url>https://dev-instructor.trainnr.com</instructor.base.url>
+        <member.base.url>https://dev-member.trainnr.com</member.base.url>
+        <member.dynamiclink.domain>https://qa-links.member.trainnr.com</member.dynamiclink.domain>
+        <member.dynamiclink.webapi.key>AIzaSyAHntxFasWwXmgWGCkHUbHR6zVIG7ol0m4</member.dynamiclink.webapi.key>
+        <member.android.package>com.fitwise.trainnr.member.qa</member.android.package>
+        <member.ios.bundle>com.fitwise.trainnr.member</member.ios.bundle>
+        <instructor.dynamiclink.domain>https://qa-links.instructor.trainnr.com</instructor.dynamiclink.domain>
+        <instructor.dynamiclink.webapi.key>AIzaSyD1gKCaoCuMDkne5z_Kq4MTM2skORjYZzA</instructor.dynamiclink.webapi.key>
+        <instructor.android.package>com.fitwise.trainnr.instructor.qa</instructor.android.package>
+        <instructor.ios.bundle>com.fitwise.trainnr.instructor</instructor.ios.bundle>
+        <!--suppress UnresolvedMavenProperty -->
+        <super.admin.email.addresses>vignesh.gunasekar@npcompete.com,vigneshmember2@mailinator.com</super.admin.email.addresses>
+        <functional.mail.allow>true</functional.mail.allow>
+        <reminder.mail.allow>true</reminder.mail.allow>
+        <aes.encryption.secret>Fitwise</aes.encryption.secret>
+        <aes.encryption.salt>Admin</aes.encryption.salt>
+        <aes.encryption.initialization.vector>FitwiseEncryptIV</aes.encryption.initialization.vector>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Swagger configuration -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- To Make api call -->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-jackson</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <!-- AWS -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>1.11.563</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.11.563</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.190</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+
+        <!-- Email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-gson</artifactId>
+            <version>1.21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>6.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>8.10.2</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/net.authorize/anet-java-sdk-->
+        <dependency>
+            <groupId>net.authorize</groupId>
+            <artifactId>anet-java-sdk</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0-b170201.1204</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.0-b170127.1453</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/jline/jline -->
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>2.11</version>
+        </dependency>
+
+
+        <!--Aspect Oriented Programming-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!--Generation of xlsx sheets-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!-- In App Purchase -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.11.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>zt-zip</artifactId>
+            <version>1.11</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+            <version>2.1.0.1</version>
+        </dependency>
+        <!-- data jar -->
+        <dependency>
+            <groupId>com.intuit.quickbooks-online</groupId>
+            <artifactId>ipp-v3-java-data</artifactId>
+            <version>6.0.7</version>
+        </dependency>
+
+        <!-- devkit jar with dependencies-->
+        <dependency>
+            <groupId>com.intuit.quickbooks-online</groupId>
+            <artifactId>ipp-v3-java-devkit</artifactId>
+            <classifier>jar-with-dependencies</classifier>
+            <version>6.0.7</version>
+        </dependency>
+
+        <!-- oauth jar with dependencies-->
+        <dependency>
+            <groupId>com.intuit.quickbooks-online</groupId>
+            <artifactId>oauth2-platform-api</artifactId>
+            <classifier>jar-with-dependencies</classifier>
+            <version>6.0.7</version>
+        </dependency>
+
+        <!-- Apple Sign-In-->
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.63</version>
+        </dependency>
+
+        <!--JJWT-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.10.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.10.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.10.7</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--UNIREST-->
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <!-- MailChimp jar dependencies -->
+        <dependency>
+            <groupId>com.ecwid</groupId>
+            <artifactId>maleorang</artifactId>
+            <version>3.0-0.9.6</version>
+        </dependency>
+
+        <!-- Jasper reports to generate Invoice PDF-->
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.0.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <!-- Dependency for CSV parsing -->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <!-- Google API-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.1.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.3.1-1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-drive</artifactId>
+            <version>v3-rev130-1.25.0</version>
+        </dependency>
+        <!-- Kloudless -->
+        <dependency>
+            <groupId>com.kloudless</groupId>
+            <artifactId>kloudless-java</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <!--Stripe Api-->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.13.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org/jaudiotagger -->
+        <dependency>
+            <groupId>org</groupId>
+            <artifactId>jaudiotagger</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.dmfs/lib-recur -->
+        <dependency>
+            <groupId>org.dmfs</groupId>
+            <artifactId>lib-recur</artifactId>
+            <version>0.12.1</version>
+        </dependency>
+        
+         <dependency>
+               <groupId>org.biacode.jcronofy</groupId>
+               <artifactId>jcronofy</artifactId>
+               <version>1.2.0</version>
+            </dependency>
+       
+       
+            <dependency>
+              <groupId>org.glassfish.jersey.core</groupId>
+              <artifactId>jersey-client</artifactId>
+              <version>2.27</version>
+            </dependency>
+         
+          <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+           
+		    <dependency>
+               <groupId>javax.ws.rs</groupId>
+               <artifactId>javax.ws.rs-api</artifactId>
+               <version>2.1.1</version>
+            </dependency>
+         
+            <dependency>
+               <groupId>org.glassfish.jersey.inject</groupId>
+               <artifactId>jersey-hk2</artifactId>
+               <version>2.28</version>
+            </dependency>
+        
+        
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <profile-id>local</profile-id>
+                <spring.profiles.active>default</spring.profiles.active>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.db.host>${db.host}</app.db.host>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.db.username>${db.username}</app.db.username>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.db.password>${db.password}</app.db.password>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.db.database>${db.database}</app.db.database>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.email.username>${email.username}</app.email.username>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.email.password>${email.password}</app.email.password>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.encryption.key>${encryption.key}</app.encryption.key>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.redis.host>${redis.host}</app.redis.host>
+                <aws.access.key>${aws.access.key}</aws.access.key>
+                <aws.secret.key>${aws.secret.key}</aws.secret.key>
+                <aws.region>${aws.region}</aws.region>
+                <aws.s3.bucket.resources>${aws.s3.bucket.resources}</aws.s3.bucket.resources>
+                <aws.resource.base.url>${aws.resource.base.url}</aws.resource.base.url>
+                <vimeo.placeholder.api>${vimeo.placeholder.api}</vimeo.placeholder.api>
+                <vimeo.auth.token>${vimeo.auth.token}</vimeo.auth.token>
+                <vimeo.auth.token.mvfolder>${vimeo.auth.token.mvfolder}</vimeo.auth.token.mvfolder>
+                <vimeo.folder.projectid>${vimeo.folder.projectid}</vimeo.folder.projectid>
+                <capcha.site.key>${capcha.site.key}</capcha.site.key>
+                <capcha.secret.key>${capcha.secret.key}</capcha.secret.key>
+                <app.url>${app.url}</app.url>
+                <qbo.oauth.clientid>${qbo.oauth.clientid}</qbo.oauth.clientid>
+                <qbo.oauth.clientsecret>${qbo.oauth.clientsecret}</qbo.oauth.clientsecret>
+                <qbo.oauth_redirecturl>${qbo.oauth_redirecturl}</qbo.oauth_redirecturl>
+                <qbo.account.host>${qbo.account.host}</qbo.account.host>
+                <qbo.company.id>${qbo.company.id}</qbo.company.id>
+                <qbo.company.name>${qbo.company.name}</qbo.company.name>
+                <qbo.verifier.token>${qbo.verifier.token}</qbo.verifier.token>
+                <mailchimp.api.accesskey>${mailchimp.api.accesskey}</mailchimp.api.accesskey>
+                <mailchimp.notify.list.id.instructor>${mailchimp.notify.list.id.instructor}
+                </mailchimp.notify.list.id.instructor>
+                <mailchimp.notify.list.id.member>${mailchimp.notify.list.id.member}</mailchimp.notify.list.id.member>
+                <trainnr.notify.to>${trainnr.notify.to}</trainnr.notify.to>
+                <trainnr.notify.cc>${trainnr.notify.cc}</trainnr.notify.cc>
+                <fcm.push.serverkey.member>${fcm.push.serverkey.member}</fcm.push.serverkey.member>
+                <fcm.push.serverkey.instructor>${fcm.push.serverkey.instructor}</fcm.push.serverkey.instructor>
+                <auth.api.login.id>${auth.api.login.id}</auth.api.login.id>
+                <auth.api.transaction.key>${auth.api.transaction.key}</auth.api.transaction.key>
+                <stripe.api_key>${stripe.api_key}</stripe.api_key>
+                <stripe.end_point_secret>${stripe.end_point_secret}</stripe.end_point_secret>
+                <app.env>${app.env}</app.env>
+                <!--suppress UnresolvedMavenProperty -->
+                <apple.payment.env>${apple.payment.environment}</apple.payment.env>
+                <!--suppress UnresolvedMavenProperty -->
+                <qbo.account.bank.name>${qbo.account.bank}</qbo.account.bank.name>
+                <!--suppress UnresolvedMavenProperty -->
+                <app.test.bot.email.list>${app.test.bot.emaillist}</app.test.bot.email.list>
+                <zendesk.api.login.key>${zendesk.api.login.key}</zendesk.api.login.key>
+                <zendesk.api.domain.url>${zendesk.api.domain.url}</zendesk.api.domain.url>
+                <zendesk.support.phone.number>${zendesk.support.phone.number}</zendesk.support.phone.number>
+                <google.oauth.callback.uri>${google.oauth.callback.uri}</google.oauth.callback.uri>
+                <google.secret.key.path>${google.secret.key.path}</google.secret.key.path>
+                <app.secret.key>${app.secret.key}</app.secret.key>
+                <validate.receipt.endpoint>${validate.receipt.endpoint}</validate.receipt.endpoint>
+                <iap.itms.appstore.notify.emailaddress>${iap.itms.appstore.notify.emailaddress}
+                </iap.itms.appstore.notify.emailaddress>
+                <!--suppress UnresolvedMavenProperty -->
+                <qbo.nofdays.sync.payment>${qbo.nofdays.syncpayment}</qbo.nofdays.sync.payment>
+                <kloudless.app.id>${kloudless.app.id}</kloudless.app.id>
+                <kloudless.api.key>${kloudless.api.key}</kloudless.api.key>
+                <zoom.client.id>${zoom.client.id}</zoom.client.id>
+                <zoom.client.secret>${zoom.client.secret}</zoom.client.secret>
+                <zoom.client.redirect.url>${zoom.client.redirect.url}</zoom.client.redirect.url>
+                <zoom.client.verification.token>${zoom.client.verification.token}</zoom.client.verification.token>
+                <instructor.base.url>${instructor.base.url}</instructor.base.url>
+                <member.base.url>${member.base.url}</member.base.url>
+                <member.dynamiclink.domain>${member.dynamiclink.domain}</member.dynamiclink.domain>
+                <member.dynamiclink.webapi.key>${member.dynamiclink.webapi.key}</member.dynamiclink.webapi.key>
+                <member.android.package>${member.android.package}</member.android.package>
+                <member.ios.bundle>${member.ios.bundle}</member.ios.bundle>
+                <instructor.dynamiclink.domain>${instructor.dynamiclink.domain}</instructor.dynamiclink.domain>
+                <instructor.dynamiclink.webapi.key>${instructor.dynamiclink.webapi.key}</instructor.dynamiclink.webapi.key>
+                <instructor.android.package>${instructor.android.package}</instructor.android.package>
+                <instructor.ios.bundle>${instructor.ios.bundle}</instructor.ios.bundle>
+                <super.admin.email.addresses>${super.admin.email.addresses}</super.admin.email.addresses>
+                <functional.mail.allow>${functional.mail.allow}</functional.mail.allow>
+                <reminder.mail.allow>${reminder.mail.allow}</reminder.mail.allow>
+                <aes.encryption.secret>${aes.encryption.secret}</aes.encryption.secret>
+                <aes.encryption.salt>${aes.encryption.salt}</aes.encryption.salt>
+                <aes.encryption.initialization.vector>${aes.encryption.initialization.vector}</aes.encryption.initialization.vector>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.ttf</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.ttf</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.war</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.0.6</version>
+                <configuration>
+                    <url>jdbc:mysql://${app.db.host}:3306/${app.db.database}?useSSL=False</url>
+                    <username>${app.db.username}</username>
+                    <password>${app.db.password}</password>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <changeLogFile>src/main/database/changelogs/changelog-master.xml</changeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <skip>${skip.liquibase}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings
+                    only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.liquibase</groupId>
+                                        <artifactId>
+                                            liquibase-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [3.0.6,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>update</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <finalName>service-backend</finalName>
+    </build>
+            <repositories>
+             <repository>
+              <id>snapshots-repo</id>
+              <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+              <releases><enabled>false</enabled></releases>
+              <snapshots><enabled>true</enabled></snapshots>
+             </repository>
+            </repositories>
+</project>
