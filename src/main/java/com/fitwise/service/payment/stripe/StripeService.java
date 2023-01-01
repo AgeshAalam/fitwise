@@ -366,6 +366,7 @@ public class StripeService {
         if (stripeCustomerRequestView.getDevicePlatformTypeId() == 2) {
             throw new ApplicationException(Constants.FORBIDDEN, MessageConstants.MSG_STRIPE_IOS_NOT_ALLOWED, null);
         }
+        log.info("Do payment");
         User user = userComponents.getUser();
         Date now = new Date();
         log.info("Get user : Time taken in millis : " + (new Date().getTime() - profilingEndTimeMillis));
